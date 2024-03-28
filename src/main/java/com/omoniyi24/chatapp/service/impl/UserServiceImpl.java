@@ -12,14 +12,14 @@ public class UserServiceImpl implements UserService {
     public String getCurrentUsername() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
-            return null; // or throw an exception based on your application's requirements
+            return null;
         }
 
         Object principal = authentication.getPrincipal();
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername();
         } else {
-            return principal.toString(); // principal might be a string for anonymous or remember-me authentication
+            return principal.toString();
         }
     }
 }
