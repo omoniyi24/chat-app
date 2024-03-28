@@ -4,8 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
+
+import java.time.Instant;
 
 @Entity
+@Data
 public class Message {
 
     @Id
@@ -13,37 +17,6 @@ public class Message {
     private Long id;
     private String username;
     private String content;
+    private Instant timeCreated;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", content='" + content + '\'' +
-                '}';
-    }
 }
