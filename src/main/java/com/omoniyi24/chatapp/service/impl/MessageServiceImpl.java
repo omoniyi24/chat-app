@@ -16,7 +16,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<Message> getAllMessages() {
-        return messageRepository.findAll();
+        return messageRepository.findAllByDeleted(false).get();
     }
 
     @Override

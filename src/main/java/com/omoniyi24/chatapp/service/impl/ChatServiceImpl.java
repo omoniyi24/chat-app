@@ -14,6 +14,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -33,6 +34,9 @@ public class ChatServiceImpl implements ChatService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
 
     @Value("${chat.rabbitmq.exchange}")
     private String exchange;
@@ -54,11 +58,14 @@ public class ChatServiceImpl implements ChatService {
         System.out.println("Received message>>>>>>>>>>: " + message.toString());
         Message newMessage =  new Message();
         newMessage.setContent(message.getContent());
-        newMessage.setUsername(message.getReceiver());
+        newMessage.setUsername(message.getSender());
         newMessage.setTimeCreated(Instant.now());
         ChatRoom chatRoom = chatRoomService.getChatRoomByName("default");
         newMessage.setChatRoomId(chatRoom.getId());
-        messageService.createMessage(newMessage);
+        Message savedMessage = messageService.createMessage(newMessage);
+        //send message websocket
+        messagingTemplate.convertAndSend("/topic/public", savedMessage);
+
     }
 
 }

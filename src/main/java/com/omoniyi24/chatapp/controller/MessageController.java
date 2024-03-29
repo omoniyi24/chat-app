@@ -18,9 +18,4 @@ public class MessageController {
     public List<Message> getAllMessages() {
         return messageService.getAllMessages();
     }
-
-    @PostMapping
-    public Message postMessage(@RequestBody Message message) {
-        return messageService.createMessage(message);
-    }
 }
