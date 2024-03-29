@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    Optional<List<Message>> findAllByUsername(String username);
+    Optional<List<Message>> findAllByDeleted(boolean deleted);
 }

@@ -3,10 +3,9 @@ package com.omoniyi24.chatapp.controller;
 import com.omoniyi24.chatapp.entity.ChatMessage;
 import com.omoniyi24.chatapp.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/message")
