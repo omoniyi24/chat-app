@@ -3,20 +3,25 @@ package com.omoniyi24.chatapp.controller;
 import com.omoniyi24.chatapp.entity.ChatMessage;
 import com.omoniyi24.chatapp.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("/message")
+@RequestMapping("/chat")
 public class ChatController {
 
     @Autowired
     private ChatService chatService;
 
     @PostMapping("/send")
-    public String sendMessage(@RequestBody ChatMessage message) {
+    public ResponseEntity<Map<String, String>> sendMessage(@RequestBody ChatMessage message) {
         chatService.sendMessage(message);
-        return "Message sent!";
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "sent");
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
