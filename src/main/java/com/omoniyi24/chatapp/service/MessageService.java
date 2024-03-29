@@ -9,4 +9,5 @@ import java.util.List;
 public interface MessageService {
     List<Message> getAllMessages(Pageable pageable);
     Message createMessage(Message message);
+    void deleteMessage(Long messageId);
 }
