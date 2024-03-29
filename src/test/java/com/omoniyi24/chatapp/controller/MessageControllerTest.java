@@ -17,9 +17,11 @@ import static org.hamcrest.Matchers.hasItem;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,7 +49,7 @@ public class MessageControllerTest {
     @Autowired
     private MockMvc restMessagesMockMvc;
 
-    private Message message = new Message();
+    private Message message;
 
 
     public static Message createEntity(EntityManager em) {
@@ -124,6 +126,31 @@ public class MessageControllerTest {
                 .andExpect(jsonPath("$.[*].chatRoomId").value(hasItem(CHAT_ROOM_ID.intValue())))
                 .andExpect(jsonPath("$.[*].timeCreated").value(hasItem(NOW.toString())))
                 .andExpect(jsonPath("$.[*].deleted").value(hasItem(DELETED_MESSAGE)));
+    }
+
+    @Test
+    @Transactional
+    void deleteMessages() throws Exception {
+        // Initialize the database
+        Message newMessage = this.message;
+        newMessage.setId(20L);
+        Message save = messageRepository.save(newMessage);
+
+        List<Message> all = messageRepository.findAll();
+
+        // Delete the message
+        restMessagesMockMvc
+                .perform(delete("/api/messages/"+ save.getId()).accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        Optional<Message> byId = messageRepository.findById(save.getId());
+        Message savedMessage = byId.get();
+        assertThat(savedMessage.getId()).isEqualTo(save.getId());
+        assertThat(savedMessage.getUsername()).isEqualTo(MESSAGE_USERNAME);
+        assertThat(savedMessage.getContent()).isEqualTo(MESSAGE_CONTENT);
+        assertThat(savedMessage.getTimeCreated()).isEqualTo(NOW);
+        assertThat(savedMessage.isDeleted()).isEqualTo(true);
+
     }
 
 }
