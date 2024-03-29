@@ -63,7 +63,7 @@ public class ChatServiceImpl implements ChatService {
         ChatRoom chatRoom = chatRoomService.getChatRoomByName("default");
         newMessage.setChatRoomId(chatRoom.getId());
         Message savedMessage = messageService.createMessage(newMessage);
-        //send message webconfig
+        //send message websocket
         messagingTemplate.convertAndSend("/topic/public", savedMessage);
 
     }
