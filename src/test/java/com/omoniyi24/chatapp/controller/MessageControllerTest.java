@@ -19,6 +19,7 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -117,6 +118,7 @@ public class MessageControllerTest {
                 .perform(get("/api/messages" + "?page=0&size=2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$.[*].username").value(hasItem(MESSAGE_USERNAME)))
                 .andExpect(jsonPath("$.[*].content").value(hasItem(MESSAGE_CONTENT)))
                 .andExpect(jsonPath("$.[*].chatRoomId").value(hasItem(CHAT_ROOM_ID.intValue())))
