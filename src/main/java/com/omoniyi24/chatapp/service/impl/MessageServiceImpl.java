@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -25,5 +26,15 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message createMessage(Message message) {
         return messageRepository.save(message);
+    }
+
+    @Override
+    public void deleteMessage(Long messageId) {
+        Optional<Message> byId = messageRepository.findById(messageId);
+        if(byId.isPresent()){
+            Message message = byId.get();
+            message.setDeleted(true);
+            messageRepository.save(message);
+        }
     }
 }
