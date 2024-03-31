@@ -9,5 +9,5 @@ import java.util.Optional;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    Optional<List<Message>> findAllByDeleted(Pageable pageable, boolean deleted);
+    Optional<List<Message>> findAllByChatRoomIdAndDeleted(Pageable pageable, Long chatRoomId, boolean deleted);
 }
