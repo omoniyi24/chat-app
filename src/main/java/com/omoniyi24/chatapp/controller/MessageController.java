@@ -19,8 +19,8 @@ public class MessageController {
     private MessageService messageService;
 
     @GetMapping
-    public List<Message> getAllMessages(Pageable pageable) {
-        return messageService.getAllMessages(pageable);
+    public List<Message> getAllMessages(@RequestParam(name = "chatRoomId", defaultValue = "1") String chatRoomId, Pageable pageable) {
+        return messageService.getAllMessages(Long.valueOf(chatRoomId), pageable);
     }
 
     @DeleteMapping("/{id}")
