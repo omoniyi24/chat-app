@@ -36,6 +36,6 @@ docker-compose up
 This command starts all services defined in docker-compose.yml. The chat application is accessible at http://localhost:8080, and RabbitMQ management interface is available at http://localhost:15672.
 
 ### 3. Using the Application
-To use the chat application, set the environment variable `POSTMAN_COLLECTION_URL` to the URL of the Postman collection.
+To use the chat application, use URL of the shared Postman collection.
 
 Follow the documented API endpoints to send, receive, and delete messages.
