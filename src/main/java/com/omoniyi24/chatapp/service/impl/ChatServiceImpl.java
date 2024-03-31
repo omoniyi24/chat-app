@@ -1,14 +1,13 @@
 package com.omoniyi24.chatapp.service.impl;
 
-import com.omoniyi24.chatapp.entity.ChatMessage;
+import com.omoniyi24.chatapp.dto.ChatMessage;
+import com.omoniyi24.chatapp.dto.ChatMessageDTO;
 import com.omoniyi24.chatapp.entity.ChatRoom;
 import com.omoniyi24.chatapp.entity.Message;
-import com.omoniyi24.chatapp.enums.Status;
 import com.omoniyi24.chatapp.service.ChatRoomService;
 import com.omoniyi24.chatapp.service.ChatService;
 import com.omoniyi24.chatapp.service.MessageService;
 import com.omoniyi24.chatapp.service.UserService;
-import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +45,12 @@ public class ChatServiceImpl implements ChatService {
 
 
     @Override
-    public void sendMessage(ChatMessage message) {
+    public void sendMessage(ChatMessageDTO message) {
+        ChatMessage chatMessage = new ChatMessage();
         String currentUsername = userService.getCurrentUsername();
-        message.setSender(currentUsername);
-        rabbitTemplate.convertAndSend(exchange, routingKey, message);
+        chatMessage.setSender(currentUsername);
+        chatMessage.setContent(message.getContent());
+        rabbitTemplate.convertAndSend(exchange, routingKey, chatMessage);
     }
 
     @Override

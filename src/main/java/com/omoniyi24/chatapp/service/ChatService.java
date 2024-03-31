@@ -1,11 +1,11 @@
 package com.omoniyi24.chatapp.service;
 
-import com.omoniyi24.chatapp.entity.ChatMessage;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import com.omoniyi24.chatapp.dto.ChatMessage;
+import com.omoniyi24.chatapp.dto.ChatMessageDTO;
 
 public interface ChatService {
 
-    void sendMessage(ChatMessage message);
+    void sendMessage(ChatMessageDTO message);
 
     void receiveMessage(ChatMessage message);
 }

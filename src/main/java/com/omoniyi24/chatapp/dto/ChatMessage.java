@@ -1,4 +1,4 @@
-package com.omoniyi24.chatapp.entity;
+package com.omoniyi24.chatapp.dto;
 
 import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Size;
@@ -13,11 +13,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @NoArgsConstructor
 public class ChatMessage {
 
-    @Null
     private String sender;
 
-    @NotBlank
-    @Size(min = 1, max = 100, message = "Message too short or too Long")
     private String content;
 
 }
