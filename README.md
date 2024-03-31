@@ -4,9 +4,6 @@ a chat server system, enabling users to join chat rooms, send messages, and acce
 ## Requirements
 
 - Docker
-- Docker Compose
-- Java 17+
-- Maven
 
 ## Getting Started
 
