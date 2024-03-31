@@ -1,6 +1,6 @@
 package com.omoniyi24.chatapp.controller;
 
-import com.omoniyi24.chatapp.entity.ChatMessage;
+import com.omoniyi24.chatapp.dto.ChatMessageDTO;
 import com.omoniyi24.chatapp.service.ChatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -15,7 +15,7 @@ public class WebsocketController {
 
     @MessageMapping("/chat.send")
     @SendTo("/topic/public")
-    public ChatMessage sendMessage(ChatMessage chatMessage) {
+    public ChatMessageDTO sendMessage(ChatMessageDTO chatMessage) {
         chatService.sendMessage(chatMessage);
         return chatMessage;
     }
