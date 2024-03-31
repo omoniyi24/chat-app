@@ -24,14 +24,13 @@ First, compile the application and create a Docker image:
 
 ```bash
 mvn package
-docker build -t chatapp .
 ```
 
 ### 2. Start Services with Docker Compose
 Start Services with Docker Compose
 Run the following command to start both the chat application and RabbitMQ:
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 This command starts all services defined in docker-compose.yml. The chat application is accessible at http://localhost:8080, and RabbitMQ management interface is available at http://localhost:15672.
 
