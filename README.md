@@ -18,23 +18,18 @@ cd chat-app
 
 To get started with the chat application, follow these steps:
 
-### 1. Build the Application
+### 1. Start Services with Docker Compose
 
-First, compile the application and create a Docker image:
-
-```bash
-mvn package
-```
-
-### 2. Start Services with Docker Compose
-Start Services with Docker Compose
 Run the following command to start both the chat application and RabbitMQ:
 ```bash
 docker-compose up -d
 ```
-This command starts all services defined in docker-compose.yml. The chat application is accessible at http://localhost:8080, and RabbitMQ management interface is available at http://localhost:15672.
+This command starts all services defined in docker-compose.yml. 
+The service uses an H2 Database for development purpose.
 
-### 3. Using the Application
+The chat application is accessible at http://localhost:8080, and RabbitMQ management interface is available at http://localhost:15672.
+
+### 2. Using the Application
 Now that everything is set up, you can start using the chat application.
 
 Import the postman collection in the link below:

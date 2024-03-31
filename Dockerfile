@@ -8,7 +8,7 @@ COPY pom.xml .
 COPY src/ src/
 
 # Use Maven to package our application. The resulting JAR will be at /app/target/chat-app.jar
-RUN mvn -e package -DskipTests
+RUN mvn package
 
 # Now, use Java 17 to run our application
 FROM openjdk:17
