@@ -19,8 +19,8 @@ public class MessageServiceImpl implements MessageService {
     private MessageRepository messageRepository;
 
     @Override
-    public List<Message> getAllMessages(Pageable pageable) {
-        return messageRepository.findAllByDeleted(pageable, false).get();
+    public List<Message> getAllMessages(Long chatRoomId, Pageable pageable) {
+        return messageRepository.findAllByChatRoomIdAndDeleted(pageable, chatRoomId, false).get();
     }
 
     @Override
