@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  chatapp:
+    build: .
+    container_name: chatapp
+    depends_on:
+      - rabbitmq
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=dev
+      - CHATAPP_RABBITMQ_HOST=rabbitmq
+    ports:
+      - 0.0.0.0:8080:8080
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+#      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - 0.0.0.0:15672:15672
+      - 0.0.0.0:5672:5672
+    labels:
+      NAME: "rabbitmq"

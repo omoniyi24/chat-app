@@ -1,0 +1,16 @@
+logging:
+    level:
+        ROOT: INFO
+        com.omoniyi24.chatapp: INFO
+
+spring:
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: ${DB_URL:jdbc:postgresql://localhost:5432/chatapp}
+        username: ${DB_USERNAME:postgres}
+        password: ${DB_PASSWORD:}
+        hikari:
+            poolName: Hikari
+            auto-commit: false
+    jpa:
+        database-platform: tech.jhipster.domain.util.FixedPostgreSQL10Dialect
